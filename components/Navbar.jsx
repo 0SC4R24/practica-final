@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import Link from 'next/link'
+
 export default function Navbar({ metadata }) {
     return (
         <header className="p-3 mb-3 border-bottom bg-light">
@@ -20,14 +23,15 @@ export default function Navbar({ metadata }) {
 
                     <div className="dropdown text-end">
                         <a href="#" className="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="https://github.com/0SC4R24.png" alt="Not signed in" width="32" height="32" className="rounded-circle"/>
+                            {/* <img src="../images/default_pfp.png" alt="Not signed in" width="32" height="32" className="rounded-circle"/> */}
+                            <Image src="/images/default_pfp.png" alt="Not signed in" width="32" height="32" className="rounded-circle" />
                         </a>
                         <ul className="dropdown-menu text-small">
                             <li><a className="dropdown-item" href="#">Profile</a></li>
                             <li><a className="dropdown-item" href="#">Settings</a></li>
                             <li><a className="dropdown-item" href="#">New project...</a></li>
                             <li><hr className="dropdown-divider"/></li>
-                            <li><a className="dropdown-item" href="#">Sign out</a></li>
+                            <li><Link href="/login">Sign in</Link></li>
                         </ul>
                     </div>
                 </div>
