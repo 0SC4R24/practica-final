@@ -1,3 +1,5 @@
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 export default function Searchbar() {
     return (
         <div className="container-fluid mx-auto">
@@ -6,7 +8,7 @@ export default function Searchbar() {
                     <input type="text" className="form-control" id="basic-url" placeholder="Search..." aria-describedby="basic-addon3 basic-addon4" defaultValue=""/>
                     <label htmlFor="basic-url">Search...</label>
                 </form>
-                <span className="input-group-text" id="basic-addon3">Lupa</span>
+                <span className="input-group-text" id="basic-addon3"><i className="bi bi-search"></i></span>
             </div>
         </div>
     )

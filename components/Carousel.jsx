@@ -1,6 +1,6 @@
 export default function Carousel() {
   return (
-    <div id="carouselExampleCaptions" className="carousel slide">
+    <div id="carouselExampleCaptions" className="carousel slide mb-5">
       <div className="carousel-indicators">
         <button
           type="button"
