@@ -13,7 +13,7 @@ export default function Navbar({ metadata }) {
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                         <li><Link href="#" className="nav-link px-2 link-secondary">Overview</Link></li>
                         <li><Link href="#" className="nav-link px-2 link-body-emphasis">Commerces</Link></li>
-                        <li><Link href="#" className="nav-link px-2 link-body-emphasis">Admin</Link></li>
+                        <li><Link href="/admin" className="nav-link px-2 link-body-emphasis">Admin</Link></li>
                     </ul>
 
                     
@@ -31,7 +31,6 @@ export default function Navbar({ metadata }) {
                         <ul className="dropdown-menu text-small">
                             <li><Link className="dropdown-item" href="#">Profile</Link></li>
                             <li><Link className="dropdown-item" href="#">Settings</Link></li>
-                            <li><Link className="dropdown-item" href="#">New project...</Link></li>
                             <li><hr className="dropdown-divider"/></li>
                             <li><Link className="dropdown-item" href="/login">Log in</Link></li>
                         </ul>
