@@ -1,0 +1,42 @@
+[
+    {
+        "title": "Card 1", 
+        "city": "Madrid"
+    },
+    {
+        "title": "Card 2",
+        "city": "Madrid"
+    },
+    {
+        "title": "Card 3",
+        "city": "Madrid"
+    },
+    {
+        "title": "Card 4",
+        "city": "Madrid"
+    },
+    {
+        "title": "Card 5",
+        "city": "Madrid"
+    },
+    {
+        "title": "Card 6",
+        "city": "Madrid"
+    },
+    {
+        "title": "Card 7",
+        "city": "Madrid"
+    },
+    {
+        "title": "Mercadona",
+        "city": "Madrid"
+    },
+    {
+        "title": "Decathlon",
+        "city": "Madrid"
+    },
+    {
+        "title": "MediaMarkt",
+        "city": "Madrid"
+    }
+]

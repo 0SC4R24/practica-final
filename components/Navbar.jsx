@@ -11,11 +11,10 @@ export default function Navbar({ metadata }) {
                     </Link>
 
                     <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        <li><Link href="#" className="nav-link px-2 link-secondary">Overview</Link></li>
+                        <li><Link href="#" className="nav-link px-2 link-body-emphasis">Overview</Link></li>
                         <li><Link href="#" className="nav-link px-2 link-body-emphasis">Commerces</Link></li>
                         <li><Link href="/admin" className="nav-link px-2 link-body-emphasis">Admin</Link></li>
                     </ul>
-
                     
                 </div>
                 <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
