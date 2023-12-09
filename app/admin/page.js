@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import "bootstrap/dist/css/bootstrap.css";
+import Alert from "@/components/Alert";
 
 async function getAdmins() {
     const res = await fetch("http://localhost:3000/api/admins");
@@ -17,17 +18,30 @@ async function checkCredentials(email, password) {
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [alerts, setAlerts] = useState([]);
     const router = useRouter();
 
-    const handleLogin = async () => {
-        const isValid = await checkCredentials(email, password);
+    const addAlert = (message, type) => {
+        // Add a new alert to the list
+        setAlerts(prevAlerts => [...prevAlerts, { message, type }]);
+    };
 
-        if (isValid) {
-            // Redirect to "/admin/commerces" on successful login
-            router.push("/admin/commerces");
-        } else {
-            // Print an error message when credentials are incorrect
-            console.error("Email or password is incorrect");
+    const handleLogin = async () => {
+        try {
+            const isValid = await checkCredentials(email, password);
+    
+            if (isValid) {
+                // Redirect to "/admin/commerces" on successful login
+                router.push("/admin/commerces");
+            } else {
+                // Print an error message when credentials are incorrect
+                console.error("Incorrect email or password");
+                addAlert("Incorrect email or password", "danger");
+            }
+        } catch (error) {
+            // Log the error to the console for debugging
+            console.error("Error during login:", error);
+            addAlert("An unexpected error occurred. Please try again.", "danger");
         }
     };
 
@@ -42,6 +56,11 @@ export default function LoginPage() {
         <div className="container py-5 h-100 my-5">
             <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div id="liveAlertPlaceholder" className="text-center">
+                        {alerts.map((alert, index) => (
+                            <Alert key={index} message={alert.message} type={alert.type} />
+                        ))}
+                    </div>
                     <div className="card shadow-2-strong" style={{ borderRadius: "1rem" }}>
                         <div className="card-body p-5 text-center">
                             <h3 className="mb-5">Admin Log in</h3>

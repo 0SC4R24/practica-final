@@ -3,9 +3,9 @@ import { readFileSync } from 'fs';
 
 export async function GET() {
     try{
-        const admins = JSON.parse(readFileSync("data/admins.txt"))
+        const admins = JSON.parse(readFileSync("data/admins.json"))
         return NextResponse.json({admins})
     } catch(e){  
-        return NextResponse.json({message: "admins.txt no existen...", status: 400})
+        return NextResponse.json({message: "admins.json no existen...", status: 400})
     }
 }
