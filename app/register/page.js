@@ -8,7 +8,7 @@ export default function RegisterPage() {
   const router = useRouter();
 
   const handleAddUser = async () => {
-    // Call the API to add the new commerce
+    // Call the API to add the new user
     fetch("/api/users", {
         method: "POST",
         headers: {
@@ -19,7 +19,7 @@ export default function RegisterPage() {
         .then((res) => res.json())
         .then((data) => console.log(data))
 
-    // Reset the form and close the modal
+    // Reset the form
     setUser({ name: "", email: "", password: "", age: 0, city: "", interest: "", offer: false });
     router.push("/");
   };

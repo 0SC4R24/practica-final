@@ -2,7 +2,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import Link from "next/link";
 import Alert from "@/components/Alert";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 async function getUsers() {
@@ -22,6 +22,15 @@ export default function LoginPage() {
   const [alerts, setAlerts] = useState([]);
   const router = useRouter();
 
+  useEffect(() => {
+    // Check if the user is already logged in
+    const isLogged = localStorage.getItem("isLogged");
+    if (isLogged) {
+      // Redirect to "/" if the user is already logged in
+      router.push("/");
+    }
+  } , []);
+
   const addAlert = (message, type) => {
     // Add a new alert to the list
     setAlerts(prevAlerts => [...prevAlerts, { message, type }]);
@@ -32,8 +41,12 @@ export default function LoginPage() {
       const isValid = await checkCredentials(email, password);
 
       if (isValid) {
-        // Redirect to "/admin/commerces" on successful login
-        router.push("/");
+        // Redirect to "/" on successful login
+        // Add isLogged to the session in localStorage
+        const user = await getUsers().then((users) => users.find((user) => user.email === email));
+        localStorage.setItem("isLogged", true);
+        localStorage.setItem("user", JSON.stringify(user));
+        window.location.reload();
       } else {
         // Print an error message when credentials are incorrect
         console.error("Incorrect email or password");
