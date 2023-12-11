@@ -2,10 +2,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
+import { useRouter } from "next/navigation";
 
 export default function Navbar({ metadata }) {
     const [isLogged, setIsLogged] = useState(false);
     const [user, setUser] = useState({});
+    const router = useRouter();
 
     useEffect(() => {
         // Use localStorage only in the client-side
@@ -26,6 +28,11 @@ export default function Navbar({ metadata }) {
         setUser({});
         setIsLogged(false);
         window.location.reload();
+    };
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        // Perform search logic
     };
 
     return (
@@ -55,8 +62,7 @@ export default function Navbar({ metadata }) {
                                 </Link>
                                 <p className="text-body mb-0">{user.name}</p>
                                 <ul className="dropdown-menu dropdown-menu-start text-small">
-                                    <li><Link href="#" className="dropdown-item">Profile</Link></li>
-                                    <li><Link href="#" className="dropdown-item">Settings</Link></li>
+                                    <li><Link href={`/${user.id}`} className="dropdown-item">Profile</Link></li>
                                     <li><hr className="dropdown-divider" /></li>
                                     <li><Link href="#" className="dropdown-item" onClick={handleLogout}>Log out</Link></li>
                                 </ul>

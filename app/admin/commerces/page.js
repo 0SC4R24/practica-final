@@ -2,6 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Searchbar from "@/components/Searchbar"
 import Card from "@/components/Card"
+import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from "react"
 
 async function getAdminsCommerces() {
@@ -13,7 +14,7 @@ async function getAdminsCommerces() {
 export default function CommercesPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [showModal, setShowModal] = useState(false);
-    const [newCommerce, setNewCommerce] = useState({ name: "", cif: "", address: "", email: "", phone: "" });
+    const [newCommerce, setNewCommerce] = useState({ name: "", cif: "", address: "", email: "", phone: "", id : "" });
     const [cardsData, setCardsData] = useState([]);
 
     useEffect(() => {
@@ -45,6 +46,7 @@ export default function CommercesPage() {
     const handleAddCommerce = async () => {
         // Add logic to handle the addition of a new commerce
         // You can update your state, API, or perform any other action here
+        newCommerce.id = uuidv4();
         const updatedCardsData = [...cardsData, newCommerce];
         setCardsData(updatedCardsData);
 
@@ -59,25 +61,46 @@ export default function CommercesPage() {
             .then((res) => res.json())
             .then((data) => console.log(data))
 
+        const cleanCommerce = { name: newCommerce.name, address: newCommerce.address, email: newCommerce.email, phone: newCommerce.phone, slogan: "", id: newCommerce.id };
+        fetch("/api/commerces", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cleanCommerce)
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+
         // Reset the form and close the modal
         setNewCommerce({ name: "", cif: "", address: "", email: "", phone: "" });
+        newCommerce.id = "";
         setShowModal(false);
     };
 
-    const handleDeleteCommerce = async (name, cif, address, email, phone) => {
+    const handleDeleteCommerce = async (id) => {
         // Add logic to handle the deletion of a commerce
         // You can update your state, API, or perform any other action here
-        const updatedCardsData = cardsData.filter((card) => card.cif !== cif);
+        const updatedCardsData = cardsData.filter((card) => card.id !== id);
         setCardsData(updatedCardsData);
 
-        const deleteCard = { name, cif, address, email, phone };
         // Call the API to delete the commerce
         fetch("/api/adminsCommerces", {
             method: "DELETE",
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ deleteCard })
+            body: JSON.stringify({ id })
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+
+        fetch("/api/commerces", {
+            method: "DELETE",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id })
         })
             .then((res) => res.json())
             .then((data) => console.log(data))
@@ -187,7 +210,7 @@ export default function CommercesPage() {
                                 email={card.email}
                                 phone={card.phone}
                                 cif={card.cif}
-                                onDelete={() => handleDeleteCommerce(card.name, card.cif, card.address, card.email, card.phone)}
+                                onDelete={() => handleDeleteCommerce(card.id)}
                             />
                         </div>
                     ))}

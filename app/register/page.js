@@ -1,13 +1,15 @@
 "use client"
 import "bootstrap/dist/css/bootstrap.css";
+import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterPage() {
-  const [user, setUser] = useState({ name: "", email: "", password: "", age: 0, city: "", interest: "", offer: false });
+  const [user, setUser] = useState({ name: "", email: "", password: "", age: 0, city: "", interest: "", offer: false, id: "" });
   const router = useRouter();
 
   const handleAddUser = async () => {
+    user.id = uuidv4();
     // Call the API to add the new user
     fetch("/api/users", {
         method: "POST",
@@ -20,7 +22,7 @@ export default function RegisterPage() {
         .then((data) => console.log(data))
 
     // Reset the form
-    setUser({ name: "", email: "", password: "", age: 0, city: "", interest: "", offer: false });
+    setUser({ name: "", email: "", password: "", age: 0, city: "", interest: "Food", offer: false, id: "" });
     router.push("/");
   };
 
@@ -103,6 +105,7 @@ export default function RegisterPage() {
               <div className="form-outline mb-4">
                 <label className="form-label" htmlFor="typeInterestsX-2">Interests</label>
                 <select className="form-select form-control" id="typeInterestsX-2" aria-label="Default select example" value={user.interest} onChange={(e) => setUser({ ...user, interest: e.target.value })}>
+                  <option value="Interests">Interests</option>
                   <option value="Food">Food</option>
                   <option value="Technology">Technology</option>
                   <option value="Sports">Sports</option>
@@ -116,7 +119,8 @@ export default function RegisterPage() {
                   id="typeOffersX-2"
                   value={user.offer}
                   onChange={(e) =>
-                    setUser({ ...user, offer: e.target.value })
+                    setUser({ ...user, offer: e.target.checked })
+                    // console.log(e.target.checked)
                   }
                 />
                 <label className="form-label" htmlFor="typeOffersX-2">Want to receive offers?</label>
