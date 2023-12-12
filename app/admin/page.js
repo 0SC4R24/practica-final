@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Alert from "@/components/Alert";
 
 async function getAdmins() {
-    const res = await fetch("http://localhost:3000/api/admins");
+    const res = await fetch("/api/admins");
     const data = await res.json();
     return data.admins;
 }

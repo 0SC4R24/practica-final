@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from "react"
 
 async function getAdminsCommerces() {
-    const res = await fetch("http://localhost:3000/api/adminsCommerces");
+    const res = await fetch("/api/adminsCommerces");
     const data = await res.json();
     return data.adminsCommerces;
 }
@@ -76,6 +76,8 @@ export default function CommercesPage() {
         setNewCommerce({ name: "", cif: "", address: "", email: "", phone: "" });
         newCommerce.id = "";
         setShowModal(false);
+
+        window.location.reload();
     };
 
     const handleDeleteCommerce = async (id) => {

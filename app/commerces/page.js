@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 async function getCommerces() {
-    const res = await fetch("http://localhost:3000/api/commerces");
+    const res = await fetch("/api/commerces");
     const data = await res.json();
     return data.commerces;
 }
@@ -39,12 +39,22 @@ export default function CommercesPage() {
             (commerce.phone && commerce.phone.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
+    const handleEdit = () => {
+        console.log("Clicked");
+    };
+
     return (
         <div className="container-fluid mt-5">
             <h1 className="text-center display-1 mb-5">Commerces</h1>
+            
             <Searchbar onChange={(value) => setSearchTerm(value)} />
-            <div className="container-fluid text-center mt-5">
-                <div className="row g-2 card-group">
+
+            <div className="container-fluid text-center my-3">
+                <button className="btn btn-primary" onClick={handleEdit}>Edit your commerce</button>
+            </div>
+
+            <div className="container text-center mt-5">
+                <div className="row row-cols-1 row-cols-md-3 g-2 card-group">
                     {filteredCommerces.map((commerce) => (
                         <CommerceCard key={commerce.id} commerce={commerce} onClick={handleClick}/>
                     ))}

@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 async function getUsers() {
-  const res = await fetch("http://localhost:3000/api/users");
+  const res = await fetch("/api/users");
   const data = await res.json();
   return data.users;
 }

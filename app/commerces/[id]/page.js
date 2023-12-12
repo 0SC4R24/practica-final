@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 async function loadCommerce(id) {
-    const res = await fetch('http://localhost:3000/api/commerces');
+    const res = await fetch('/api/commerces');
     const data = await res.json();
     const commerce = data.commerces.find((commerce) => commerce.id === id);
     return commerce;
@@ -35,7 +35,7 @@ export default function Page({ params }) {
                         : 
                             "No slogan"
                         }    
-                    </h1>                    
+                    </h1>
                 </div>
             }
         </>
