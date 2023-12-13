@@ -27,6 +27,29 @@ export async function POST(request) {
     return NextResponse.json({message: "commerces.json actualizado correctamente...", status: 200});
 }
 
+export async function PUT(request) {
+    const updateData = await request.json();
+
+    try {
+        const filePath = 'data/commerces.json';
+        let commerces = JSON.parse(readFileSync(filePath));
+
+        const index = commerces.findIndex(commerce => commerce.id === updateData.id);
+
+        if (index === -1) {
+            return NextResponse.json({ message: "Commerce not found...", status: 404 });
+        }
+
+        commerces[index] = { ...commerces[index], ...updateData };
+        writeFileSync(filePath, JSON.stringify(commerces));
+
+        return NextResponse.json({ message: "commerces.json updated successfully...", status: 200 });
+    } catch (error) {
+        console.error('Error updating data:', error);
+        return NextResponse.json({ message: "Error updating commerces.json...", status: 500, error });
+    }
+}
+
 export async function DELETE(request) {
     const data = await request.json();
     try {

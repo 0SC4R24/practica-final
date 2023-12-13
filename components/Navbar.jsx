@@ -27,7 +27,7 @@ export default function Navbar({ metadata }) {
         localStorage.removeItem('isLogged');
         setUser({});
         setIsLogged(false);
-        window.location.reload();
+        window.location.href = "/";
     };
 
     const handleSearch = (e) => {

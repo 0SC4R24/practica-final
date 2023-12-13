@@ -34,13 +34,12 @@ export default function CommercesPage() {
     const filteredCommerces = commerces.filter(
         (commerce) =>
             (commerce.name && commerce.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (commerce.slogan && commerce.slogan.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (commerce.email && commerce.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (commerce.phone && commerce.phone.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     const handleEdit = () => {
-        console.log("Clicked");
+        router.push("/commerces/login")
     };
 
     return (

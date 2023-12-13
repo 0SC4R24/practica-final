@@ -14,7 +14,7 @@ async function getAdminsCommerces() {
 export default function CommercesPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [showModal, setShowModal] = useState(false);
-    const [newCommerce, setNewCommerce] = useState({ name: "", cif: "", address: "", email: "", phone: "", id : "" });
+    const [newCommerce, setNewCommerce] = useState({ name: "", cif: "", city: "", email: "", phone: "", id : "" });
     const [cardsData, setCardsData] = useState([]);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ export default function CommercesPage() {
     const filteredNotes = cardsData.filter(
         (card) =>
             (card.name && card.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (card.address && card.address.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (card.city && card.city.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (card.email && card.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (card.phone && card.phone.toLowerCase().includes(searchTerm.toLowerCase())) ||
             (card.cif && card.cif.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -61,7 +61,7 @@ export default function CommercesPage() {
             .then((res) => res.json())
             .then((data) => console.log(data))
 
-        const cleanCommerce = { name: newCommerce.name, address: newCommerce.address, email: newCommerce.email, phone: newCommerce.phone, slogan: "", id: newCommerce.id };
+        const cleanCommerce = { name: newCommerce.name, city: newCommerce.city, email: newCommerce.email, phone: newCommerce.phone, id: newCommerce.id };
         fetch("/api/commerces", {
             method: "POST",
             headers: {
@@ -72,8 +72,19 @@ export default function CommercesPage() {
             .then((res) => res.json())
             .then((data) => console.log(data))
 
+        const cleanCommerceContent = { name: newCommerce.name, city: newCommerce.city, id: newCommerce.id, summary: "", activity: "", numberOfReviews: 0, rating: 0 ,reviews: [] };
+        fetch("/api/commercesContent", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(cleanCommerceContent)
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+
         // Reset the form and close the modal
-        setNewCommerce({ name: "", cif: "", address: "", email: "", phone: "" });
+        setNewCommerce({ name: "", cif: "", city: "", email: "", phone: "" });
         newCommerce.id = "";
         setShowModal(false);
 
@@ -152,15 +163,15 @@ export default function CommercesPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="form-label" htmlFor="address">Address</label>
+                                    <label className="form-label" htmlFor="city">City</label>
                                     <input 
-                                        placeholder="Enter commerce address" 
-                                        id="address" 
+                                        placeholder="Enter commerce city" 
+                                        id="city" 
                                         className="form-control" 
                                         type="text" 
-                                        value={newCommerce.address}
+                                        value={newCommerce.city}
                                         onChange={(e) =>
-                                            setNewCommerce({ ...newCommerce, address: e.target.value })
+                                            setNewCommerce({ ...newCommerce, city: e.target.value })
                                         }
                                     />
                                 </div>
@@ -208,7 +219,7 @@ export default function CommercesPage() {
                         <div key={index} className="col-sm-4 col-12 col-lg-2 m-1 m-lg-2">
                             <Card
                                 name={card.name}
-                                address={card.address}
+                                city={card.city}
                                 email={card.email}
                                 phone={card.phone}
                                 cif={card.cif}
