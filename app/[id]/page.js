@@ -51,6 +51,9 @@ export default function Page({ params }) {
                 })
             });
 
+            // Update localStorage
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            window.location.reload();
             console.log("User updated successfully");
         } catch (error) {
             console.error("Error updating commerce:", error);

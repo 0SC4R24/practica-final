@@ -1,0 +1,27 @@
+[
+    [
+        {
+            "id": "6f58462f-d2d7-4f11-b195-b18e4a472e74",
+            "reviews": [
+                {
+                    "userId": "0f0585ef-2c3f-439d-b150-b2c4fe9f59a5",
+                    "name": "Oscar",
+                    "comment": "Bad idea",
+                    "rating": "1"
+                },
+                {
+                    "userId": "0f0585ef-2c3f-439d-b150-b2c4fe9f59a5",
+                    "name": "Oscar",
+                    "comment": "adsasd",
+                    "rating": "1"
+                },
+                {
+                    "userId": "0f0585ef-2c3f-439d-b150-b2c4fe9f59a5",
+                    "name": "Oscar",
+                    "comment": "Nice market",
+                    "rating": "7"
+                }
+            ]
+        }
+    ]
+]
